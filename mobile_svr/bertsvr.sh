@@ -2,13 +2,15 @@
 #chkconfig: 2345 80 90
 #description: 启动BERT分类模型 
 
-echo 'start BERT mobile svr...'
-cd /mnt/sda1/transdat/bert-demo/bert/mobile_svr
-sudo rm -rf tmp*
+SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
+cd $SHELL_FOLDER
 
-export BERT_BASE_DIR=/mnt/sda1/transdat/bert-demo/bert/chinese_L-12_H-768_A-12
-export TRAINED_CLASSIFIER=/mnt/sda1/transdat/bert-demo/bert/output
-export EXP_NAME=mobile_0
+echo 'start BERT mobile svr...'
+rm -rf tmp*
+
+export BERT_BASE_DIR=$SHELL_FOLDER/../bert_tiny
+export TRAINED_CLASSIFIER=$SHELL_FOLDER/../output
+export EXP_NAME=sentiment
 
 bert-base-serving-start \
     -model_dir $TRAINED_CLASSIFIER/$EXP_NAME \
@@ -18,5 +20,4 @@ bert-base-serving-start \
     -max_seq_len 128 \
     -http_port 8091 \
     -port 5575 \
-    -port_out 5576 \
-    -device_map 1 
+    -port_out 5576 

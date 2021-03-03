@@ -1,9 +1,11 @@
-cd /home/kangweipeng/hupidong/Learning/BERT-train2deploy/
-export BERT_BASE_DIR=/home/kangweipeng/hupidong/Learning/BERT-train2deploy/bert_tiny
-export DATA_DIR=/home/kangweipeng/hupidong/Learning/BERT-train2deploy/data
-export TRAINED_CLASSIFIER=/home/kangweipeng/hupidong/Learning/BERT-train2deploy/output
-export EXP_NAME=setiment
+SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
+export PROJECT_DIR=$SHELL_FOLDER
+export BERT_BASE_DIR=${PROJECT_DIR}/bert_tiny
+export DATA_DIR=${PROJECT_DIR}/data
+export TRAINED_CLASSIFIER=${PROJECT_DIR}/output
+export EXP_NAME=sentiment
 
+cd $PROJECT_DIR
 python run_mobile.py \
   --task_name=setiment \
   --do_train=true \
@@ -15,5 +17,5 @@ python run_mobile.py \
   --max_seq_length=128 \
   --train_batch_size=32 \
   --learning_rate=2e-5 \
-  --num_train_epochs=20.0 \
+  --num_train_epochs=15.0 \
   --output_dir=$TRAINED_CLASSIFIER/$EXP_NAME

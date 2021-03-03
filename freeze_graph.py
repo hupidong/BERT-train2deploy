@@ -178,7 +178,7 @@ def optimize_class_model(args, logger=None):
             with tf.Session() as sess:
                 input_ids = tf.placeholder(tf.int32, (None, args.max_seq_len), 'input_ids')
                 input_mask = tf.placeholder(tf.int32, (None, args.max_seq_len), 'input_mask')
-
+                segment_ids = tf.placeholder(tf.int32, (None, args.max_seq_len), 'segment_ids')
                 bert_config = modeling.BertConfig.from_json_file(os.path.join(args.bert_model_dir, 'bert_config.json'))
 
                 loss, per_example_loss, logits, probabilities = create_classification_model(bert_config=bert_config, is_training=False,
